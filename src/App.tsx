@@ -28,7 +28,7 @@ const style = {
 };
 
 export const App = () => {
-  const [task, setTask] = useState([""]);
+  const [tasks, setTasks] = useState<string[]>([]);
   const [addTaskModal, setAddTaskModal] = useState(false);
   const [taskText, setTaskText] = useState("");
 
@@ -36,8 +36,10 @@ export const App = () => {
   const addTaskModalClose = () => setAddTaskModal(false);
 
   const addTask = () => {
-    setTask([...task, taskText]);
-    setAddTaskModal(false);
+    if (taskText.trim() !== "") {
+      setTasks([...tasks, taskText]);
+      setAddTaskModal(false);
+    }
   };
 
   return (
@@ -84,6 +86,11 @@ export const App = () => {
                 </Badge>
               </div>
             </div>
+            {tasks.map((task, i) => (
+              <div key={i} css={taskArea}>
+                <div css={taskContent}>{task}</div>
+              </div>
+            ))}
             <div css={add} onClick={addTaskModalOpen}>
               <Button variant="text">+ タスクを追加</Button>
             </div>
@@ -141,12 +148,12 @@ const box = css`
   height: 100%;
   width: 22%;
   border-radius: 10px;
-  background-color: #f7f6f6;
+  background-color: #eeeded;
 `;
 const title = css`
   height: 80px;
   line-height: 80px;
-  border-bottom: 3px solid white;
+  border-bottom: 3px solid #fdfdfd;
   display: flex;
   box-sizing: border-box;
   padding-left: 20px;
@@ -172,4 +179,20 @@ const textArea = css`
   box-sizing: border-box;
   padding-left: 15px;
   line-height: 20px;
+`;
+const taskArea = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+const taskContent = css`
+  width: 95%;
+  box-shadow: 50px;
+  border: 1px solid #e6e6e6;
+  background-color: white;
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 15px;
+  margin-top: 3px;
 `;
