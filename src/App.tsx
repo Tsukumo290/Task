@@ -81,7 +81,7 @@ export const App = () => {
             <div css={title}>
               <div>ToDo</div>
               <div css={icon}>
-                <Badge badgeContent={4} color="primary">
+                <Badge badgeContent={tasks.length} color="primary">
                   <TaskIcon />
                 </Badge>
               </div>
