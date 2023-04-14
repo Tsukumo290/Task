@@ -3,6 +3,11 @@ import { css } from "@emotion/react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import { Badge } from "@mui/material";
+import TaskIcon from "@mui/icons-material/Task";
+import RotateRightIcon from "@mui/icons-material/RotateRight";
+import DoneIcon from "@mui/icons-material/Done";
+import PendingIcon from "@mui/icons-material/Pending";
 
 export const App = () => {
   return (
@@ -23,17 +28,43 @@ export const App = () => {
           <div css={box}>
             <div css={title}>
               <div>ToDo</div>
-              <div>課題数</div>
+              <div css={icon}>
+                <Badge badgeContent={4} color="primary">
+                  <TaskIcon />
+                </Badge>
+              </div>
             </div>
           </div>
           <div css={box}>
-            <div css={title}></div>
+            <div css={title}>
+              <div>進行中</div>
+              <div css={icon}>
+                <Badge badgeContent={4} color="primary">
+                  <RotateRightIcon />
+                </Badge>
+              </div>
+            </div>
+            <div></div>
           </div>
           <div css={box}>
-            <div css={title}></div>
+            <div css={title}>
+              <div>Done</div>
+              <div css={icon}>
+                <Badge badgeContent={4} color="primary">
+                  <DoneIcon />
+                </Badge>
+              </div>
+            </div>
           </div>
           <div css={box}>
-            <div css={title}></div>
+            <div css={title}>
+              <div>保留</div>
+              <div css={icon}>
+                <Badge badgeContent={4} color="primary">
+                  <PendingIcon />
+                </Badge>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -42,7 +73,7 @@ export const App = () => {
 };
 
 const bottom = css`
-  height: calc(100vh - 64px);
+  height: calc(100vh - 90px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -61,8 +92,15 @@ const box = css`
   background-color: #f7f6f6;
 `;
 const title = css`
-  height: 60px;
-  line-height: 60px;
+  height: 80px;
+  line-height: 80px;
   border-bottom: 3px solid white;
   display: flex;
+  box-sizing: border-box;
+  padding-left: 20px;
+  font-size: 18px;
+  font-weight: bold;
+`;
+const icon = css`
+  padding-left: 5px;
 `;
