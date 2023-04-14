@@ -8,10 +8,60 @@ import TaskIcon from "@mui/icons-material/Task";
 import RotateRightIcon from "@mui/icons-material/RotateRight";
 import DoneIcon from "@mui/icons-material/Done";
 import PendingIcon from "@mui/icons-material/Pending";
+import { useState } from "react";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+
+const style = {
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  height: 150,
+  bgcolor: "background.paper",
+  // border: "1px solid #000",
+  boxShadow: 20,
+  p: 3,
+  borderRadius: "10px",
+};
 
 export const App = () => {
+  const [task, setTask] = useState([""]);
+  const [addTaskModal, setAddTaskModal] = useState(false);
+  const [taskText, setTaskText] = useState("");
+
+  const addTaskModalOpen = () => setAddTaskModal(true);
+  const addTaskModalClose = () => setAddTaskModal(false);
+
+  const addTask = () => {
+    setTask([...task, taskText]);
+    setAddTaskModal(false);
+  };
+
   return (
     <>
+      <Modal
+        open={addTaskModal}
+        onClose={addTaskModalClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography
+            id="modal-modal-description"
+            sx={{ mt: 2, height: "100%" }}
+          >
+            <textarea
+              onChange={(e) => setTaskText(() => e.target.value)}
+              placeholder="タスク"
+              css={textArea}
+            ></textarea>
+            <Button onClick={addTask}>追加</Button>
+          </Typography>
+        </Box>
+      </Modal>
       <AppBar position="static" sx={{ height: 90 }}>
         <Toolbar>
           <Typography
@@ -34,6 +84,9 @@ export const App = () => {
                 </Badge>
               </div>
             </div>
+            <div css={add} onClick={addTaskModalOpen}>
+              <Button variant="text">+ タスクを追加</Button>
+            </div>
           </div>
           <div css={box}>
             <div css={title}>
@@ -44,7 +97,6 @@ export const App = () => {
                 </Badge>
               </div>
             </div>
-            <div></div>
           </div>
           <div css={box}>
             <div css={title}>
@@ -103,4 +155,21 @@ const title = css`
 `;
 const icon = css`
   padding-left: 5px;
+`;
+const add = css`
+  height: 40px;
+  line-height: 40px;
+  box-sizing: border-box;
+  padding-left: 10px;
+`;
+const textArea = css`
+  border: none;
+  resize: none;
+  outline: none;
+  width: 100%;
+  height: 55%;
+  font-size: 16px;
+  box-sizing: border-box;
+  padding-left: 15px;
+  line-height: 20px;
 `;
