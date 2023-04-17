@@ -12,8 +12,13 @@ import { useState } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import { DndContext } from "@dnd-kit/core";
+import { CSS } from "@dnd-kit/utilities";
 
-const style = {
+import { Draggable } from "./Draggable";
+import { Droppable } from "./Droppable";
+
+const ModalStyle = {
   position: "absolute" as "absolute",
   top: "50%",
   left: "50%",
@@ -42,6 +47,15 @@ export const App = () => {
     }
   };
 
+  const [isDropped, setIsDropped] = useState(false);
+  const draggableMarkup = <Draggable>Drag me</Draggable>;
+
+  function handleDragEnd(event) {
+    if (event.over && event.over.id === "droppable") {
+      setIsDropped(true);
+    }
+  }
+
   return (
     <>
       <Modal
@@ -50,7 +64,7 @@ export const App = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={ModalStyle}>
           <Typography
             id="modal-modal-description"
             sx={{ mt: 2, height: "100%" }}
@@ -127,6 +141,10 @@ export const App = () => {
           </div>
         </div>
       </div>
+      <DndContext onDragEnd={handleDragEnd}>
+        {!isDropped ? draggableMarkup : null}
+        <Droppable>{isDropped ? draggableMarkup : "Drop here"}</Droppable>
+      </DndContext>
     </>
   );
 };
