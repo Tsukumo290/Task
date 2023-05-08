@@ -85,7 +85,7 @@ export const App = () => {
             component="div"
             sx={{ flexGrow: 1, lineHeight: 4.5, fontSize: 24 }}
           >
-            Task-Management-test
+            Task-Management
           </Typography>
         </Toolbar>
       </AppBar>
